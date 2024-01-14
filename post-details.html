@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<script>
+    // На странице post-details.html:
+    // 7 Вивести всю, без виключення, інформацію про об'єкт post на який клікнули .
+    // 8 Нижчє інформаці про пост, вивести всі коментарі поточного поста (ендпоінт  - https://jsonplaceholder.typicode.com/posts/POST_ID/comments)
+
+    let url = new URL(location.href);
+    let postId = url.searchParams.get('id');
+    let postWrap = document.createElement('div')
+    postWrap.classList.add('post_wrap')
+
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+        .then((response) => response.json())
+        .then(post =>{
+            let createHtml = (key, obj)=>{
+                let element = document.createElement('div');
+                let bold = document.createElement('b');
+                let text = document.createElement('p');
+                bold.innerText = key;
+                text.innerText = obj[key];
+                element.appendChild(bold);
+                element.appendChild(text);
+                postWrap.appendChild(element);
+            }
+
+            function looper(obj){
+                for(let key in obj){
+                    if(typeof obj[key] !== 'object'){
+                         createHtml(key, obj);
+                    } else {
+                       looper(obj[key]);
+                    }
+                }
+            }
+            looper(post);
+            document.body.append(postWrap);
+
+           return fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
+        })
+        .then((response) => response.json())
+        .then(comments =>{
+            let commentsWrap = document.createElement('div');
+            commentsWrap.classList.add('comments_wrap');
+            for(let comment of comments){
+                let commentWrap = document.createElement('div');
+                let commentTitle = document.createElement('h4');
+                let commentEmail = document.createElement('b')
+                let commentBody = document.createElement('p');
+                commentTitle.innerText = comment.name;
+                commentEmail.innerText = comment.email;
+                commentBody.innerText = comment.body;
+                commentWrap.append(commentTitle, commentEmail, commentBody);
+                commentsWrap.appendChild(commentWrap)
+            }
+            document.body.append(commentsWrap);
+        });
+</script>
+</body>
+</html>

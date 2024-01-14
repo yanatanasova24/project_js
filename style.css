@@ -1,0 +1,167 @@
+/*Стилизація проєкта -*/
+/*index.html - всі блоки з user - по 2 в рядок. кнопки/аосилвння розташувати під інформацією про user.*/
+/* user-details.html - блок з інфою про user зверху сторінки. Кнопка нижчє, на 90% ширини сторінки, по центру.*/
+/*блоки з короткою іфною про post - в ряд по 5 .*/
+/* post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.*/
+/*                                                                                                                Всі елементи котрі характеризують users, posts, comments візуалізувати, так, щоб було видно що це блоки (дати фон. марджини і тд)*/
+
+/* index */
+
+.users_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.users_wrap div{
+    width: 45%;
+    border: 1px solid darkslateblue;
+    box-sizing: border-box;
+    margin-top: 1em;
+    padding: 1em;
+    box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.15);
+    transition: .3s all;
+}
+
+.users_wrap div:hover{
+    transform: translateY(-3px);
+}
+
+.users_wrap p{
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.users_wrap a{
+    text-decoration: none;
+    color: cornflowerblue;
+    transition: .3s color;
+}
+
+.users_wrap a:hover{
+    text-decoration: none;
+    color: darkcyan;
+}
+
+/* user details */
+
+.user{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 2em;
+}
+
+.user div{
+    width: 27%;
+    border: 1px solid pink;
+    box-sizing: border-box;
+    margin-top: 1em;
+    padding: 1em;
+    box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.15);
+}
+
+.user p{
+    margin-bottom: 0;
+}
+
+.posts_button{
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid dodgerblue;
+    background-color: transparent;
+    padding: 2em;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: dodgerblue;
+    font-weight: 100;
+    transition: .3s all;
+}
+
+.posts_button:hover{
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+    color: #fff;
+    cursor: pointer;
+}
+
+.hide_posts{
+    display: none;
+}
+
+.posts_info ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-left: 0;
+}
+
+.posts_info ul li{
+    width: 18%;
+    list-style: none;
+    border: 1px solid darkslateblue;
+    box-sizing: border-box;
+    margin-top: 1em;
+    padding: 1em;
+    box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.15);
+    transition: .3s all;
+}
+
+.posts_info ul li:hover{
+    transform: translateY(-3px);
+}
+
+.posts_info a{
+    text-decoration: none;
+    color: cornflowerblue;
+    transition: .3s color;
+}
+
+.posts_info a:hover{
+    color: darkcyan;
+}
+
+/* post details */
+
+.post_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.post_wrap div{
+    width: 45%;
+    border: 1px solid pink;
+    box-sizing: border-box;
+    margin-top: 1em;
+    padding: 1em;
+    box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.15);
+}
+
+.post_wrap p{
+    margin-bottom: 0;
+}
+
+.comments_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.comments_wrap div{
+    width: 23%;
+    border: 1px solid darkslateblue;
+    box-sizing: border-box;
+    margin-top: 3em;
+    padding: 1em;
+    box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.15);
+}
+
+.comments_wrap h4{
+    margin-top: 0;
+}
+
+.comments_wrap p{
+    margin-bottom: 0;
+}

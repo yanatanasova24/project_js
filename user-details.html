@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<script>
+    // На странице user-details.html:
+    // 4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули
+    // 5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного юзера
+    // (для получения постов используйте эндпоинт https://jsonplaceholder.typicode.com/users/USER_ID/posts)
+    //     6 Каждому посту додати кнопку/посилання, при кліку на яку відбувається перехід на сторінку post-details.html, котра має детальну інфу про поточний пост.
+    let url = new URL(location.href);
+    let userId = url.searchParams.get('id');
+    let userWrap = document.createElement('div')
+    userWrap.classList.add('user');
+
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+        .then((response) => response.json())
+        .then(user =>{
+            let createHtml = (key, obj)=>{
+                let element = document.createElement('div');
+                let bold = document.createElement('b');
+                let text = document.createElement('p');
+                bold.innerText = key;
+                text.innerText = obj[key];
+                element.appendChild(bold);
+                element.appendChild(text);
+                userWrap.appendChild(element);
+            }
+
+            function looper(obj){
+                for(let key in obj){
+                    if(typeof obj[key] !== 'object'){
+                         createHtml(key, obj);
+                    } else {
+                       looper(obj[key]);
+                    }
+                }
+            }
+            looper(user);
+            document.body.append(userWrap);
+
+            return fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`);
+        })
+        .then((response) => response.json())
+        .then(posts =>{
+            let buttonForPost = document.createElement('button');
+            buttonForPost.innerText = 'Post of current user';
+            buttonForPost.classList.add('posts_button');
+            document.body.appendChild(buttonForPost);
+            let postsListWrap = document.createElement('ul');
+            for(let post of posts){
+                let postTitle = document.createElement('li');
+                let a = document.createElement('a');
+                a.innerText = post.title;
+                a.href = `post-details.html?id=${post.id}`;
+                postTitle.appendChild(a);
+                postsListWrap.appendChild(postTitle);
+            }
+            let postsWrap = document.createElement('div');
+            postsWrap.classList.add('posts_info', 'hide_posts');
+            buttonForPost.addEventListener('click', function(e){
+                postsWrap.classList.toggle('hide_posts');
+            });
+            postsWrap.appendChild(postsListWrap);
+            document.body.append(postsWrap);
+        });
+</script>
+</body>
+</html>
